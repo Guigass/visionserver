@@ -3,13 +3,13 @@
 
 This roadmap outlines the development stages planned for VisionServer, prioritizing essential features, performance improvements, and security enhancements.
 
-## Phase 1: Core Features (Completed)
+## Phase 1: Core Features
 - [ ] Camera registration implementation via Angular frontend.
 - [ ] RTSP to HLS conversion using FFmpeg.
 - [ ] Load balancing across multiple Docker containers.
 - [ ] Nginx integration with Docker for load balancing.
 
-## Phase 2: Security and Monitoring (In Progress)
+## Phase 2: Security and Monitoring
 - [ ] Implement JWT authentication for the API.
 - [ ] Set up SSL/TLS in Nginx to ensure secure communication.
 - [ ] Configure Prometheus to monitor CPU, memory usage, and container loads.
