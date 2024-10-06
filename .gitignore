@@ -1,0 +1,13 @@
+server/VisionApi/obj
+server/VisionApi/bin
+server/VisionApi/.vs
+
+server/Vision.Data/obj
+server/Vision.Data/bin
+server/Vision.Data/.vs
+
+server/VisionOrchestrator/obj
+server/VisionOrchestrator/bin
+server/VisionOrchestrator/.vs
+
+.vs

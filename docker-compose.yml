@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+
+  # Backend API .NET Core
+  api:
+    image: visionserver-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=db_vision;Username=postgres;Password=password
+      - AppSettings__Secret=7QyHv3U42Rzn8cw8tStggJg92VLJVyqzsFUHnr7qu11ukaKK
+      - AppSettings__ExpirationHours=12
+      - AppSettings__Issuer=visionserver
+      - AppSettings__ValidAt=http://localhost:8180
+      - TZ=America/Sao_Paulo
+    depends_on:
+      - db
+    volumes:
+      - cam_data:/app/cam # Monta o volume para compartilhar os arquivos da camera
+    networks:
+      - vision_network
+
+  # Orchestrator para gerenciamento de câmeras
+  orchestrator:
+    image: visionserver-orchestrator
+    user: root
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=db_vision;Username=postgres;Password=password
+      - DOCKER_HOST=tcp://host.docker.internal:2375
+      - TZ=America/Sao_Paulo
+    depends_on:
+      - db
+    volumes:
+      - cam_data:/app/cam # Monta o volume para compartilhar os arquivos da camera
+      - /var/run/docker.sock:/var/run/docker.sock # Monta o socket do Docker
+    networks:
+      - vision_network
+    privileged: true # Habilitar permissões elevadas
+
+  # Nginx como proxy reverso
+  nginx:
+    image: nginx:latest
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - cam_data:/usr/share/nginx/html/cam # Monta o volume para servir os arquivos da camera via Nginx
+    ports:
+      - "8180:80"
+    depends_on:
+      - api
+    networks:
+      - vision_network
+
+  # Banco de dados PostgreSQL
+  db:
+    image: postgres:latest
+    environment:
+      TZ: America/Sao_Paulo
+      POSTGRES_DB: db_vision
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "54320:5432"
+    networks:
+      - vision_network
+
+  # Adicionar o Portainer para gerenciar o Docker Swarm
+  # portainer:
+  #   image: portainer/portainer-ce:latest
+  #   command: -H unix:///var/run/docker.sock
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
+  #   ports:
+  #     - "9000:9000"
+  #   networks:
+  #     - vision_network
+
+# Definição da rede Docker para comunicação entre os serviços
+networks:
+  vision_network:
+    external: true
+
+# Persistência de dados do banco e cam
+volumes:
+  db_data:
+  cam_data:
+  portainer_data:

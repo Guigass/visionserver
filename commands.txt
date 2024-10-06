@@ -1,0 +1,15 @@
+# Comando para subir o cluster
+docker stack deploy -c docker-compose.yml visionserver
+
+# Comando para parar o cluster
+docker stack rm visionserver
+
+# Comando para gerar a rede
+docker network create --driver overlay vision_network
+
+# Comando para buildar as images
+docker build -t visionserver-api ./server
+docker build -t visionserver-orchestrator -f ./server/Dockerfile.orchestrator ./server
+
+# Comando para build o ffmpegserver
+docker build -t visionserver-ffmpeg -f ./ffmpeg/Dockerfile ./ffmpeg
