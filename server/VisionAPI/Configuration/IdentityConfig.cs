@@ -60,4 +60,28 @@ public static class IdentityConfig
 
         return services;
     }
+
+
+    public static async Task AddRoles(this WebApplication app)
+    {
+        using (var scope = app.Services.CreateScope())
+        {
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+            await SeedRoles(roleManager);
+        }
+    }
+
+    static async Task SeedRoles(RoleManager<AppRole> roleManager)
+    {
+        if (!await roleManager.RoleExistsAsync("Admin"))
+        {
+            await roleManager.CreateAsync(new AppRole { Name = "Admin" });
+        }
+
+        if (!await roleManager.RoleExistsAsync("User"))
+        {
+            await roleManager.CreateAsync(new AppRole { Name = "User" });
+        }
+    }
 }

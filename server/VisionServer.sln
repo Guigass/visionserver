@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisionOrchestrator", "Visio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions items", "Solutions items", "{B8F9556B-CB3C-47C3-9896-8A3C2EC7F3F9}"
 	ProjectSection(SolutionItems) = preProject
+		..\docker-compose.yml = ..\docker-compose.yml
 		Dockerfile = Dockerfile
 		Dockerfile.orchestrator = Dockerfile.orchestrator
 	EndProjectSection
