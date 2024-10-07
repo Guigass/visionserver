@@ -215,12 +215,12 @@ public class DockerService : IDockerService
         {
             Service = new ServiceSpec
             {
-                Name = $"visionserver_ffmpeg_{camera.Id}", // Nome único para o serviço
+                Name = $"visionserver/ffmpeg_{camera.Id}", // Nome único para o serviço
                 TaskTemplate = new TaskSpec
                 {
                     ContainerSpec = new ContainerSpec
                     {
-                        Image = "visionserver-ffmpeg", // Imagem base do FFmpeg
+                        Image = "visionserver/ffmpeg", // Imagem base do FFmpeg
                         Env = new List<string>
                         {
                             "TZ=America/Sao_Paulo",

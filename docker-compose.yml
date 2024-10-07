@@ -3,7 +3,7 @@ services:
 
   # Backend API .NET Core
   api:
-    image: visionserver-api
+    image: visionserver/api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=db_vision;Username=postgres;Password=password
@@ -21,7 +21,7 @@ services:
 
   # Orchestrator para gerenciamento de câmeras
   orchestrator:
-    image: visionserver-orchestrator
+    image: visionserver/orchestrator
     user: root
     environment:
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=db_vision;Username=postgres;Password=password
