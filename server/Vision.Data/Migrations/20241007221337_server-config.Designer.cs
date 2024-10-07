@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Vision.Data.Context;
@@ -11,9 +12,11 @@ using Vision.Data.Context;
 namespace Vision.Data.Migrations
 {
     [DbContext(typeof(VisionContext))]
-    partial class VisionContextModelSnapshot : ModelSnapshot
+    [Migration("20241007221337_server-config")]
+    partial class serverconfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
