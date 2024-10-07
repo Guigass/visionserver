@@ -399,7 +399,7 @@ namespace Vision.Data.Migrations
 
             migrationBuilder.Sql(@"
                 INSERT INTO ""ServerConfigs"" (""Id"", ""OnlyProcessWhenIsRequested"", ""IdleTimeToStopProcess"") 
-                VALUES (uuid_generate_v4(), true, 30)
+                VALUES ('aadb7e9b-ecc7-4bf0-8c3f-baaed802bb4d', true, 30)
                 ON CONFLICT DO NOTHING;
             ");
         }

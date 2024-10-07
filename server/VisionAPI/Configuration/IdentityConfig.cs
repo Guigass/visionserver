@@ -67,16 +67,22 @@ public static class IdentityConfig
         using (var scope = app.Services.CreateScope())
         {
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-            await SeedRoles(roleManager);
+            await SeedRoles(roleManager, userManager);
         }
     }
 
-    static async Task SeedRoles(RoleManager<AppRole> roleManager)
+    static async Task SeedRoles(RoleManager<AppRole> roleManager, UserManager<User> userManager)
     {
         if (!await roleManager.RoleExistsAsync("Admin"))
         {
             await roleManager.CreateAsync(new AppRole { Name = "Admin" });
+
+            var adminUser = await userManager.FindByIdAsync("05c9f133-f340-4d7e-8c83-39807168bb35");
+
+            if (adminUser != null)
+                await userManager.AddToRoleAsync(adminUser, "Admin");
         }
 
         if (!await roleManager.RoleExistsAsync("User"))
