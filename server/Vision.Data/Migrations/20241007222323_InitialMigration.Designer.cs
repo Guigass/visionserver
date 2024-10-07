@@ -12,8 +12,8 @@ using Vision.Data.Context;
 namespace Vision.Data.Migrations
 {
     [DbContext(typeof(VisionContext))]
-    [Migration("20241006142144_one")]
-    partial class one
+    [Migration("20241007222323_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -382,6 +382,23 @@ namespace Vision.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Panels");
+                });
+
+            modelBuilder.Entity("Vision.Data.Models.ServerConfig", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("IdleTimeToStopProcess")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("OnlyProcessWhenIsRequested")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServerConfigs");
                 });
 
             modelBuilder.Entity("Vision.Data.Models.User", b =>

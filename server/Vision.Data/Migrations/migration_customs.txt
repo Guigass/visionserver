@@ -1,0 +1,42 @@
+UP:
+
+            migrationBuilder.Sql(@"
+                CREATE OR REPLACE FUNCTION notify_camera_is_requested() 
+                RETURNS TRIGGER AS $$
+                BEGIN
+                    IF OLD.""IsRequested"" IS DISTINCT FROM NEW.""IsRequested"" THEN
+                        PERFORM pg_notify('camera_is_requested', NEW.""Id""::text);
+                    END IF;
+                    RETURN NEW;
+                END;
+                $$ LANGUAGE plpgsql;
+            ");
+
+            // Criar a trigger que chama a função ao atualizar ou inserir dados na tabela Camera
+            migrationBuilder.Sql(@"
+                CREATE TRIGGER camera_is_requested_trigger
+                AFTER UPDATE ON ""Cameras""
+                FOR EACH ROW EXECUTE FUNCTION notify_camera_is_requested();
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO ""AspNetUsers"" 
+                (""Id"", ""UserName"", ""NormalizedUserName"", ""Email"", ""NormalizedEmail"", ""EmailConfirmed"", ""PasswordHash"", ""SecurityStamp"", ""ConcurrencyStamp"", ""PhoneNumberConfirmed"", ""TwoFactorEnabled"", ""LockoutEnabled"", ""AccessFailedCount"", ""IsActive"", ""LastLogin"", ""CreatedAt"", ""UpdatedAt"") 
+                VALUES ('05c9f133-f340-4d7e-8c83-39807168bb35', 'admin@visionserver.com', 'ADMIN@VISIONSERVER.COM', 'admin@visionserver.com', 'ADMIN@VISIONSERVER.COM', true, 'AQAAAAIAAYagAAAAEMi5i7agBCTDeX1Kvt+KrwPn+oksJ8Maa9ECNCzxY5i2PhY0pKPwF5QQPxLg//JVwQ==', '242b18eb-93a3-4bfe-8785-da9a23fa14aa', 'e408f36d-8dc9-496b-ae95-354be0b5724e', false, false, false, 0, true, NOW(), NOW(), NOW())
+                ON CONFLICT DO NOTHING;
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO ""ServerConfigs"" (""Id"", ""OnlyProcessWhenIsRequested"", ""IdleTimeToStopProcess"") 
+                VALUES (uuid_generate_v4(), true, 30)
+                ON CONFLICT DO NOTHING;
+            ");
+
+
+
+Down:
+            migrationBuilder.Sql(@"DROP TRIGGER IF EXISTS camera_is_requested_trigger ON ""Cameras"";");
+
+            migrationBuilder.Sql(@"DROP FUNCTION IF EXISTS notify_camera_is_requested;");
+
+            migrationBuilder.Sql(@"DELETE FROM ""AspNetUsers"" WHERE ""UserName"" = 'admin';");

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Vision.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class one : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -117,6 +117,19 @@ namespace Vision.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServerConfigs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OnlyProcessWhenIsRequested = table.Column<bool>(type: "boolean", nullable: false),
+                    IdleTimeToStopProcess = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServerConfigs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -358,6 +371,7 @@ namespace Vision.Data.Migrations
                 table: "Panels",
                 column: "UserId");
 
+
             migrationBuilder.Sql(@"
                 CREATE OR REPLACE FUNCTION notify_camera_is_requested() 
                 RETURNS TRIGGER AS $$
@@ -370,7 +384,6 @@ namespace Vision.Data.Migrations
                 $$ LANGUAGE plpgsql;
             ");
 
-            // Criar a trigger que chama a função ao atualizar ou inserir dados na tabela Camera
             migrationBuilder.Sql(@"
                 CREATE TRIGGER camera_is_requested_trigger
                 AFTER UPDATE ON ""Cameras""
@@ -381,6 +394,12 @@ namespace Vision.Data.Migrations
                 INSERT INTO ""AspNetUsers"" 
                 (""Id"", ""UserName"", ""NormalizedUserName"", ""Email"", ""NormalizedEmail"", ""EmailConfirmed"", ""PasswordHash"", ""SecurityStamp"", ""ConcurrencyStamp"", ""PhoneNumberConfirmed"", ""TwoFactorEnabled"", ""LockoutEnabled"", ""AccessFailedCount"", ""IsActive"", ""LastLogin"", ""CreatedAt"", ""UpdatedAt"") 
                 VALUES ('05c9f133-f340-4d7e-8c83-39807168bb35', 'admin@visionserver.com', 'ADMIN@VISIONSERVER.COM', 'admin@visionserver.com', 'ADMIN@VISIONSERVER.COM', true, 'AQAAAAIAAYagAAAAEMi5i7agBCTDeX1Kvt+KrwPn+oksJ8Maa9ECNCzxY5i2PhY0pKPwF5QQPxLg//JVwQ==', '242b18eb-93a3-4bfe-8785-da9a23fa14aa', 'e408f36d-8dc9-496b-ae95-354be0b5724e', false, false, false, 0, true, NOW(), NOW(), NOW())
+                ON CONFLICT DO NOTHING;
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO ""ServerConfigs"" (""Id"", ""OnlyProcessWhenIsRequested"", ""IdleTimeToStopProcess"") 
+                VALUES (uuid_generate_v4(), true, 30)
                 ON CONFLICT DO NOTHING;
             ");
         }
@@ -410,6 +429,9 @@ namespace Vision.Data.Migrations
                 name: "CamerasPanels");
 
             migrationBuilder.DropTable(
+                name: "ServerConfigs");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -427,8 +449,6 @@ namespace Vision.Data.Migrations
             migrationBuilder.Sql(@"DROP TRIGGER IF EXISTS camera_is_requested_trigger ON ""Cameras"";");
 
             migrationBuilder.Sql(@"DROP FUNCTION IF EXISTS notify_camera_is_requested;");
-
-            migrationBuilder.Sql(@"DELETE FROM ""AspNetUsers"" WHERE ""UserName"" = 'admin';");
         }
     }
 }
