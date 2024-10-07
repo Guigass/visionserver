@@ -22,5 +22,5 @@ public class VisionContext : IdentityDbContext<User, AppRole, Guid, AppUserClaim
     public DbSet<CameraGroup> CamerasGroups { get; set; }
     public DbSet<Panel> Panels { get; set; }
     public DbSet<CameraPanel> CamerasPanels { get; set; }
-
+    public DbSet<ServerConfig> ServerConfigs { get; set; }
 }
