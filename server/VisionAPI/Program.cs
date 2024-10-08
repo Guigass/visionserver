@@ -13,13 +13,7 @@ builder.Services.AddIdentityConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 
-builder.Services.Configure<ApiBehaviorOptions>(opt =>
-{
-    opt.SuppressModelStateInvalidFilter = true;
-});
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.WebApiConfig();
 
 builder.Services.ResolveDependencies();
 
@@ -31,22 +25,17 @@ await app.AddRoles();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("Development");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+else
 {
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
+    app.UseCors("Production");
+    app.UseHsts();
+}
 
-app.UseAntiXssMiddleware();
-
-app.UseStaticFiles();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseAppConfiguration();
 
 app.MapControllers();
 

@@ -1,0 +1,54 @@
+ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--ion-color-light);
+  }
+  
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    top: 50%;
+    transform: translateY(50%);
+  }
+  
+  .not-found-icon {
+    font-size: 80px;
+    color: var(--ion-color-primary);
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .not-found-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--ion-color-dark);
+    margin: 10px 0;
+  }
+  
+  .not-found-message {
+    font-size: 16px;
+    color: var(--ion-color-medium);
+    margin-bottom: 20px;
+  }
+  
+  ion-button {
+    --border-radius: 20px;
+    padding: 8px 24px;
+  }
+  
+  /* Animação pulse */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

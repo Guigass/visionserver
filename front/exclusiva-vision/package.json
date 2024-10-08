@@ -27,7 +27,13 @@
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
     "@ionic/angular": "^8.0.0",
+    "@ng-icons/core": "^29.3.0",
+    "@ng-icons/material-icons": "^29.3.0",
+    "@ng-icons/material-symbols": "^29.3.0",
+    "@videogular/ngx-videogular": "^8.0.0",
+    "@auth0/angular-jwt": "^5.2.0",
     "ionicons": "^7.2.1",
+    "ngx-ui-loader": "^13.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

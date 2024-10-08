@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { add, albums, alertCircleOutline, apps, camera, chevronBack, chevronForward, close, ellipsisHorizontal, ellipsisVertical, exit, expand, eye, grid, home, hourglass, pause, pencil, play, reload, settings, trash, videocam, volumeHigh, volumeMute } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,32 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    addIcons({
+      play,
+      pause,
+      volumeHigh,
+      volumeMute,
+      expand,
+      camera,
+      reload,
+      home,
+      settings,
+      apps,
+      grid,
+      videocam,
+      albums,
+      eye,
+      hourglass,
+      add,
+      ellipsisVertical,
+      pencil,
+      trash,
+      close,
+      exit,
+      alertCircleOutline,
+      chevronBack,
+      chevronForward
+    });
+  }
 }

@@ -1,0 +1,131 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-img slot="start" class="img-logo" src="/assets/logos/logo-vertical-negativo.png"></ion-img>
+        <ion-item slot="end" lines="none" color="transparent">
+          <app-internet-state-icon></app-internet-state-icon>
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
+    
+    <app-clock></app-clock>
+    
+    <ion-content>
+
+      <!-- <ion-list class="ion-margin">
+        <ion-accordion-group [value]="panelOpen()" (ionChange)="accordionGroupChange($event, 'panel')">
+          <ion-accordion value="open">
+            <ion-item slot="header">
+              <ion-icon slot="start" name="apps"></ion-icon>
+              <ion-label>Painéis</ion-label>
+            </ion-item>
+            <div slot="content">
+              <div class="new-panel-item">
+                <ion-item slot="end" button lines="none" (click)="createPanel()" class="create-new-button" color="light">
+                  <ion-icon slot="start" name="add" color="primary"></ion-icon>
+                  <ion-label color="primary">Criar Novo</ion-label>
+                </ion-item>
+              </div>
+              <div id="menu-panels">
+                @for (item of panels(); track item.id) {
+                  <ion-item button routerLink="/panel/{{item.id}}" routerDirection="root" routerLinkActive="panel-active">
+                    <ion-label>{{item.name}}</ion-label>
+                    <ion-badge slot="end" [color]="item.color">
+                      @if (item.monitors) {
+                        {{item.monitors.length}}
+                      } @else {
+                        0
+                      }
+                    </ion-badge>
+                  </ion-item>
+                }
+              </div>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-list>
+
+      <ion-list class="ion-margin">
+        <ion-accordion-group [value]="groupOpen()" (ionChange)="accordionGroupChange($event, 'group')">
+          <ion-accordion value="open">
+            <ion-item slot="header">
+              <ion-icon slot="start" name="albums"></ion-icon>
+              <ion-label>Grupos</ion-label>
+            </ion-item>
+            <div id="menu-groups" slot="content">
+              @for (item of groups(); track item.name) {
+                <ion-item button 
+                          routerLink="/group/{{item.name}}" 
+                          routerDirection="root" 
+                          routerLinkActive="group-active">
+                  <ion-label>{{item.name}}</ion-label>
+                  <ion-badge slot="end" color="light">
+                    @if (item.monitors) {
+                      {{item.monitors.length}}
+                    } @else {
+                      0
+                    }
+                  </ion-badge>
+                </ion-item>
+              }
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-list>
+
+      <ion-list class="ion-margin">
+        <ion-accordion-group [value]="cameraOpen()" (ionChange)="accordionGroupChange($event, 'camera')">
+          <ion-accordion value="open">
+            <ion-item slot="header">
+              <ion-icon slot="start" name="videocam"></ion-icon>
+              <ion-label>Cameras</ion-label>
+            </ion-item>
+            <div id="menu-monitors" slot="content" appNavigateWithArrows>
+              @for (item of monitors(); track item.mid) {
+                <ion-item button 
+                          routerLink="/camera/{{item.mid}}" 
+                          routerDirection="root" 
+                          routerLinkActive="monitor-active">
+                  <ion-label>{{item.name}}</ion-label>
+                  @defer (on viewport) {
+                    <img slot="end" class="img-camera" [src]="item.snapshotUrl + timeStamp()" (error)="onError($event)"/>
+                  } @placeholder {
+                    <img src="assets/images/connecting.gif" class="img-camera" />
+                  }
+                </ion-item>
+              }
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-list> -->
+
+    </ion-content>
+
+    <ion-footer>
+      <ion-item button lines="none" routerLink="/home" routerDirection="root">
+        <ion-icon slot="start" name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-item>
+
+      <ion-item button id="open-popover-settings">
+        <ion-icon slot="start" name="settings"></ion-icon>
+        <ion-label>Opções</ion-label>
+      </ion-item>
+      <ion-popover trigger="open-popover-settings" triggerAction="click" dismissOnSelect="true">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item button lines="none" (click)="logout()">
+                <ion-icon slot="start" name="exit"></ion-icon>
+                <ion-label>Sair</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </ion-footer>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>
