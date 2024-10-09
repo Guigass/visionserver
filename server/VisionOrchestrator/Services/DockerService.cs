@@ -89,17 +89,17 @@ public class DockerService : IDockerService
         }
 
         // Adicionar Probesize se estiver definido
-        if (!string.IsNullOrEmpty(camera.Probesize))
+        if (camera.Probesize != null)
         {
             hlsOptions.Add("-probesize");
-            hlsOptions.Add(camera.Probesize);
+            hlsOptions.Add(camera.Probesize.ToString());
         }
 
         // Adicionar AnalyzeDuration se estiver definido
-        if (!string.IsNullOrEmpty(camera.AnalyzeDuration))
+        if (camera.AnalyzeDuration != null)
         {
             hlsOptions.Add("-analyzeduration");
-            hlsOptions.Add(camera.AnalyzeDuration);
+            hlsOptions.Add(camera.AnalyzeDuration.ToString());
         }
 
         // Otimização para baixa latência

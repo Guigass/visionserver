@@ -22,8 +22,8 @@ public class Camera : Entity
     public int? Framerate { get; set; }
     public int? Bitrate { get; set; }
     [MaxLength(5)]
-    public string? AnalyzeDuration { get; set; }
-    public string? Probesize { get; set; }
+    public int? AnalyzeDuration { get; set; }
+    public int? Probesize { get; set; }
 
     //Tunning
     public bool? ZeroLatency { get; set; }

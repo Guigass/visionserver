@@ -1,9 +1,199 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cadastra Camera</ion-title>
+    <ion-title>Cadastrar Câmera</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="cameraForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- Campos principais da câmera -->
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input type="text" formControlName="name" placeholder="Ex.: Câmera Entrada">
+        </ion-input>
+        <ion-note color="medium">Identificação da câmera no sistema.</ion-note>
+      </ion-item>
 
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Descrição</ion-label>
+        <ion-input type="text" formControlName="description" placeholder="Ex.: Entrada Principal"></ion-input>
+        <ion-note color="medium">Descrição da localização ou características da câmera.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">URL RTSP</ion-label>
+        <ion-input type="text" formControlName="rtspUrl" placeholder="Ex.: rtsp://..."></ion-input>
+        <ion-note color="medium">Endereço de conexão RTSP da câmera.</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-toggle formControlName="isActive">Ativa</ion-toggle>
+      </ion-item>
+
+      <!-- Configurações de Vídeo -->
+      <ion-item-divider>
+        <ion-label>Configurações de Vídeo</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Resolução (Largura x Altura)</ion-label>
+        <ion-item color="transparent" lines="none" class="ion-no-padding">
+          <ion-input type="number" formControlName="width" placeholder="Largura (px)"></ion-input>
+          <ion-input type="number" formControlName="height" placeholder="Altura (px)"></ion-input>
+        </ion-item>
+        <ion-note color="medium">Ex.: 1920x1080 para Full HD.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Framerate (FPS)</ion-label>
+        <ion-input type="number" formControlName="framerate" placeholder="Ex.: 30"></ion-input>
+        <ion-note color="medium">Taxa de quadros por segundo. Ex.: 30 FPS para vídeos suaves.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Bitrate (kbps)</ion-label>
+        <ion-input type="number" formControlName="bitrate" placeholder="Ex.: 4000"></ion-input>
+        <ion-note color="medium">Taxa de bits para a codificação de vídeo. Ex.: 4000 para 4 Mbps.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Analyze Duration</ion-label>
+        <ion-input type="number" formControlName="analyzeDuration" placeholder="Ex.: 1000000"></ion-input>
+        <ion-note color="medium">Tempo de análise para descobrir o formato de vídeo.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Probesize</ion-label>
+        <ion-input type="number" formControlName="probesize" placeholder="Ex.: 1000000"></ion-input>
+        <ion-note color="medium">Tamanho do buffer para análise do fluxo de vídeo.</ion-note>
+      </ion-item>
+
+      <!-- Tuning -->
+      <ion-item-divider>
+        <ion-label>Tuning</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-toggle formControlName="zeroLatency">Zero Latência</ion-toggle>
+        <ion-note class="ion-padding" color="medium">Otimiza para baixa latência. Ideal para visualizações em tempo real.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-toggle formControlName="noBuffer">Sem Buffer</ion-toggle>
+        <ion-note class="ion-padding" color="medium">Desativa o buffer para reduzir atrasos em redes rápidas.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">GOP</ion-label>
+        <ion-input type="number" formControlName="gop" placeholder="Ex.: 50"></ion-input>
+        <ion-note color="medium">Intervalo entre quadros-chave (GOP).</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Buffer Size</ion-label>
+        <ion-input type="number" formControlName="bufferSize" placeholder="Ex.: 2000"></ion-input>
+        <ion-note color="medium">Tamanho do buffer em kb.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Threads</ion-label>
+        <ion-input type="number" formControlName="threads" placeholder="Ex.: 4"></ion-input>
+        <ion-note color="medium">Número de threads usadas na codificação.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-toggle  formControlName="vsync">Vsync</ion-toggle>
+        <ion-note class="ion-padding" color="medium">Sincronização vertical de quadros.</ion-note>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-toggle formControlName="useServerTimestamps">Use Timestamps do Servidor</ion-toggle>
+        <ion-note class="ion-padding" color="medium">Usa os timestamps do servidor.</ion-note>
+      </ion-item>
+
+      <!-- Codificação -->
+      <ion-item-divider>
+        <ion-label>Codificação</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Codec de Vídeo</ion-label>
+        <ion-select formControlName="videoCodec">
+          <ion-select-option value="copy">Copy</ion-select-option>
+          <ion-select-option value="libx264">h264</ion-select-option>
+          <ion-select-option value="libx265">h265</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Preset</ion-label>
+        <ion-input formControlName="preset" placeholder="Ex.: ultrafast"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">CRF</ion-label>
+        <ion-input type="number" formControlName="crf" placeholder="Qualidade, Ex.: 18"></ion-input>
+        <ion-note color="medium">Fator de Qualidade Constante (CRF) para vídeos h264/h265.</ion-note>
+      </ion-item>
+
+      <!-- Áudio -->
+      <ion-item-divider>
+        <ion-label>Áudio</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-toggle formControlName="audioEnabled">Habilitar Áudio</ion-toggle>
+      </ion-item>
+
+      @if (cameraForm.get('audioEnabled')!.value) {
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="stacked">Codec de Áudio</ion-label>
+          <ion-input formControlName="audioCodec" placeholder="Ex.: aac"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="stacked">Bitrate de Áudio (kbps)</ion-label>
+          <ion-input type="number" formControlName="audioBitrate" placeholder="Ex.: 128"></ion-input>
+        </ion-item>
+      
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="stacked">Canais de Áudio</ion-label>
+          <ion-input type="number" formControlName="audioChannels" placeholder="Ex.: 2"></ion-input>
+        </ion-item>
+      }
+      
+      <!-- Configurações HLS -->
+      <ion-item-divider>
+        <ion-label>HLS</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Tempo de Segmento (s)</ion-label>
+        <ion-input type="number" formControlName="hlsTime" placeholder="Ex.: 2"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Lista de Segmentos</ion-label>
+        <ion-input type="number" formControlName="hlsListSize" placeholder="Ex.: 5"></ion-input>
+      </ion-item>
+
+      <!-- Parâmetros de Rede -->
+      <ion-item-divider>
+        <ion-label>Rede</ion-label>
+      </ion-item-divider>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="stacked">Transporte RTSP</ion-label>
+        <ion-select formControlName="rtspTransport">
+          <ion-select-option value="udp">UDP</ion-select-option>
+          <ion-select-option value="tcp">TCP</ion-select-option>
+        </ion-select>
+        <ion-note color="medium">Protocolo de transporte para RTSP.</ion-note>
+      </ion-item>
+
+      <ion-button class="ion-padding" expand="block" type="submit" [disabled]="cameraForm.invalid">Salvar</ion-button>
+    </ion-list>
+  </form>
 </ion-content>

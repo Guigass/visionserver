@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Vision.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,8 +71,8 @@ namespace Vision.Data.Migrations
                     Height = table.Column<int>(type: "integer", nullable: true),
                     Framerate = table.Column<int>(type: "integer", nullable: true),
                     Bitrate = table.Column<int>(type: "integer", nullable: true),
-                    AnalyzeDuration = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
-                    Probesize = table.Column<string>(type: "text", nullable: true),
+                    AnalyzeDuration = table.Column<int>(type: "integer", maxLength: 5, nullable: true),
+                    Probesize = table.Column<int>(type: "integer", nullable: true),
                     ZeroLatency = table.Column<bool>(type: "boolean", nullable: true),
                     NoBuffer = table.Column<bool>(type: "boolean", nullable: true),
                     GOP = table.Column<int>(type: "integer", nullable: true),
@@ -96,9 +96,7 @@ namespace Vision.Data.Migrations
                     LastRequested = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CameraSnapshotUrl = table.Column<string>(type: "text", nullable: true),
                     GenerateSnapshot = table.Column<bool>(type: "boolean", nullable: false),
-                    SnapshotFPS = table.Column<double>(type: "double precision", nullable: false),
-                    HLSUrl = table.Column<string>(type: "text", nullable: true),
-                    SnapshotUrl = table.Column<string>(type: "text", nullable: true)
+                    SnapshotFPS = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -370,7 +368,6 @@ namespace Vision.Data.Migrations
                 name: "IX_Panels_UserId",
                 table: "Panels",
                 column: "UserId");
-
 
             migrationBuilder.Sql(@"
                 CREATE OR REPLACE FUNCTION notify_camera_is_requested() 

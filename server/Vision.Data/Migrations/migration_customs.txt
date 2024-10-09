@@ -12,7 +12,6 @@ UP:
                 $$ LANGUAGE plpgsql;
             ");
 
-            // Criar a trigger que chama a função ao atualizar ou inserir dados na tabela Camera
             migrationBuilder.Sql(@"
                 CREATE TRIGGER camera_is_requested_trigger
                 AFTER UPDATE ON ""Cameras""
@@ -28,7 +27,7 @@ UP:
 
             migrationBuilder.Sql(@"
                 INSERT INTO ""ServerConfigs"" (""Id"", ""OnlyProcessWhenIsRequested"", ""IdleTimeToStopProcess"") 
-                VALUES (uuid_generate_v4(), true, 30)
+                VALUES ('aadb7e9b-ecc7-4bf0-8c3f-baaed802bb4d', true, 30)
                 ON CONFLICT DO NOTHING;
             ");
 
@@ -38,5 +37,3 @@ Down:
             migrationBuilder.Sql(@"DROP TRIGGER IF EXISTS camera_is_requested_trigger ON ""Cameras"";");
 
             migrationBuilder.Sql(@"DROP FUNCTION IF EXISTS notify_camera_is_requested;");
-
-            migrationBuilder.Sql(@"DELETE FROM ""AspNetUsers"" WHERE ""UserName"" = 'admin';");

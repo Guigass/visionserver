@@ -11,8 +11,8 @@ export interface Camera {
     height?: number;
     framerate?: number;
     bitrate?: number;
-    analyzeDuration?: string;
-    probesize?: string;
+    analyzeDuration?: number;
+    probesize?: number;
   
     // Tunning
     zeroLatency?: boolean;

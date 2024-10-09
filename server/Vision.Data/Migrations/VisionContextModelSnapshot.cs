@@ -28,9 +28,9 @@ namespace Vision.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AnalyzeDuration")
+                    b.Property<int?>("AnalyzeDuration")
                         .HasMaxLength(5)
-                        .HasColumnType("character varying(5)");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("AudioBitrate")
                         .HasColumnType("integer");
@@ -77,9 +77,6 @@ namespace Vision.Data.Migrations
                     b.Property<int>("HLSTime")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HLSUrl")
-                        .HasColumnType("text");
-
                     b.Property<int?>("Height")
                         .HasColumnType("integer");
 
@@ -111,8 +108,8 @@ namespace Vision.Data.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<string>("Probesize")
-                        .HasColumnType("text");
+                    b.Property<int?>("Probesize")
+                        .HasColumnType("integer");
 
                     b.Property<string>("RTSPUrl")
                         .IsRequired()
@@ -128,9 +125,6 @@ namespace Vision.Data.Migrations
 
                     b.Property<double>("SnapshotFPS")
                         .HasColumnType("double precision");
-
-                    b.Property<string>("SnapshotUrl")
-                        .HasColumnType("text");
 
                     b.Property<int?>("Threads")
                         .HasColumnType("integer");
