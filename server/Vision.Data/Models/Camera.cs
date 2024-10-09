@@ -22,7 +22,7 @@ public class Camera : Entity
     public int? Framerate { get; set; }
     public int? Bitrate { get; set; }
     [MaxLength(5)]
-    public string? AnalyzeDuration { get; set; }      
+    public string? AnalyzeDuration { get; set; }
     public string? Probesize { get; set; }
 
     //Tunning
@@ -68,6 +68,6 @@ public class Camera : Entity
     public double SnapshotFPS { get; set; } = 2;
 
     // Urls
-    public string? HLSUrl { get; set; }
-    public string? SnapshotUrl { get; set; }
+    public string? HLSUrl => $"/cam/hls/{Id}/playlist.m3u8";
+    public string? SnapshotUrl => GenerateSnapshot ? $"/cam/snapshot/{Id}/snapshot.jpg" : CameraSnapshotUrl;
 }
