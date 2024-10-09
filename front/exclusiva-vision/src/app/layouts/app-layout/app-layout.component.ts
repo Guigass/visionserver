@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonRouterLink, IonSplitPane, IonContent, IonNote, IonIcon, IonItem, IonListHeader, IonList, IonLabel, IonRouterOutlet, IonMenu, IonImg, IonToolbar, IonHeader, IonAccordion, IonAccordionGroup, IonButton, IonFooter, IonPopover, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonText, IonBadge } from "@ionic/angular/standalone";
 import { ClockComponent } from 'src/app/shared/components/clock/clock.component';
 import { InternetStateIconComponent } from 'src/app/shared/components/internet-state-icon/internet-state-icon.component';
+import { AuthService } from 'src/app/shared/services/api/auth/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-app-layout',
@@ -41,14 +43,15 @@ import { InternetStateIconComponent } from 'src/app/shared/components/internet-s
     InternetStateIconComponent
   ]
 })
-export class AppLayoutComponent implements OnInit {
+export class AppLayoutComponent {
+  private readonly authService = inject(AuthService);
+
+  isAdmin = signal(this.authService.hasClaim('role', 'Admin'));
 
   constructor() { }
 
-  ngOnInit() { }
-
   logout() {
-
+    this.authService.logOff();
   }
 
 }
