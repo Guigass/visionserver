@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>cameras</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cameras</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cameras</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    @if (cameras()?.length! <= 0) {
+      <ion-item class="ion-text-center">
+        <ion-label>Nenhuma Camera Encontrada</ion-label>
+      </ion-item>
+    }
+    @for (camera of cameras(); track camera.id) {
+      <ion-item>
+        <ion-label>{{camera.name}}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
 </ion-content>
