@@ -84,7 +84,7 @@ export class AuthService {
     this.storage.remove('ui');
     this.storage.remove('cla');
 
-    this.navCtrl.navigateRoot('/');
+    window.location.reload();
   }
 
   checkAuthenticated(): boolean {

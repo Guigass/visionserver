@@ -113,5 +113,7 @@ export class StorageService {
   
     sessionStorage.clear();
     localStorage.clear();
+
+    window.location.reload();
   }
 }
