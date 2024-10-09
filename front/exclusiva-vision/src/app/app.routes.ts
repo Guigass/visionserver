@@ -30,8 +30,29 @@ export const routes: Routes = [
     data: {claimType: 'role', claimValue: 'Admin'},
     children: [
       {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
         path: 'home',
         loadComponent: () => import('./pages/admin/home/home.page').then( m => m.HomePage)
+      },
+      {
+        path: 'cameras',
+        loadComponent: () => import('./pages/admin/cameras/cameras.page').then( m => m.CamerasPage)
+      },
+      {
+        path: 'groups',
+        loadComponent: () => import('./pages/admin/groups/groups.page').then( m => m.GroupsPage)
+      },
+      {
+        path: 'users',
+        loadComponent: () => import('./pages/admin/users/users.page').then( m => m.UsersPage)
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/admin/settings/settings.page').then( m => m.SettingsPage)
       }
     ]
   },
