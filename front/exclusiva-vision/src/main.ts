@@ -5,10 +5,17 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { importProvidersFrom } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, importProvidersFrom, LOCALE_ID } from '@angular/core';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './app/shared/interceptors/auth/auth.interceptor';
 import { apiInterceptor } from './app/shared/interceptors/api/api.interceptor';
+
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt, 'pt-BR');
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -16,6 +23,7 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     importProvidersFrom(
+      VgCoreModule,
       JwtModule.forRoot({
         config: {
           throwNoTokenError: false,
@@ -44,6 +52,8 @@ bootstrapApplication(AppComponent, {
         apiInterceptor,
         authInterceptor
       ])
-    )
+    ),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
   ],
 });
