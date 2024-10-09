@@ -32,9 +32,9 @@
     "@ng-icons/material-icons": "^29.3.0",
     "@ng-icons/material-symbols": "^29.3.0",
     "@videogular/ngx-videogular": "^10.0.0",
+    "hls.js": "^1.5.14",
     "ionicons": "^7.2.1",
     "ngx-ui-loader": "^13.0.0",
-    "hls.js": "^1.5.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -54,7 +54,6 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
     "eslint-plugin-prefer-arrow": "1.2.2",
