@@ -11,6 +11,7 @@ public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class
 {
     Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression);
     Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<IEnumerable<TEntity>> GetByIds(List<Guid> ids);
     Task<TEntity> GetByIdAsync(Guid id);
     Task<IEnumerable<TEntity>> ListAsync(ISpecification<TEntity> spec);
     Task CreateAsync(TEntity entity);

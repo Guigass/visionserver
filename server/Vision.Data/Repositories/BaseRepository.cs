@@ -26,6 +26,11 @@ public abstract class BaseRepository<TEntity> : IRepositoryBase<TEntity> where T
         return await DbSet.ToListAsync();
     }
 
+    public async Task<IEnumerable<TEntity>> GetByIds(List<Guid> ids)
+    {
+        return await DbSet.AsNoTracking().Where(x => ids.Contains(x.Id)).ToListAsync();
+    }
+
     public async Task<TEntity> GetByIdAsync(Guid id)
     {
         var entity = await DbSet.FindAsync(id);

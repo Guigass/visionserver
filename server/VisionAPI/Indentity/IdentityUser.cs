@@ -39,6 +39,11 @@ public class IdentityUser : IUser
         return _accessor.HttpContext!.User!.IsInRole(role);
     }
 
+    public bool HasClaim(string claimType, string claimValue)
+    {
+        return _accessor.HttpContext!.User!.HasClaim(claimType, claimValue);
+    }
+
     public IEnumerable<Claim> GetClaimsIdentity()
     {
         return _accessor.HttpContext!.User.Claims;

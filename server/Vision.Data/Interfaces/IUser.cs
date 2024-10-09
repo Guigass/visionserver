@@ -14,5 +14,6 @@ public interface IUser
     string GetUserNome();
     bool IsAuthenticated();
     bool IsInRole(string role);
+    bool HasClaim(string claimType, string claimValue)
     IEnumerable<Claim> GetClaimsIdentity();
 }
