@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInputPasswordToggle, IonContent, IonHeader, IonTitle, IonToolbar, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonItem, IonButton, IonLabel, IonToggle } from '@ionic/angular/standalone';
+import { IonInput, IonInputPasswordToggle, IonContent, IonHeader, IonTitle, IonToolbar, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonItem, IonButton, IonLabel, IonToggle } from '@ionic/angular/standalone';
 import { NavController, AlertController, LoadingController } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/shared/services/api/auth/auth.service';
 import { take } from 'rxjs';
@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
+    IonInput,
     IonToggle, 
     IonLabel, 
     IonButton, 
