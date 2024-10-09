@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from 'src/app/shared/models/api-response.modal';
 import { Camera } from 'src/app/shared/models/camera.model';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +14,24 @@ export class CameraService {
 
   constructor() { }
 
-  getCameras(): Observable<Camera[]> {
-    return this.http.get<Camera[]>(this.apiUrl);
+  getCameras(): Observable<ApiResponse<Camera[]>> {
+    return this.http.get<ApiResponse<Camera[]>>(this.apiUrl);
   }
 
-  getCamera(id: string): Observable<Camera> {
-    return this.http.get<Camera>(`${this.apiUrl}/${id}`);
+  getCamera(id: string): Observable<ApiResponse<Camera>> {
+    return this.http.get<ApiResponse<Camera>>(`${this.apiUrl}/${id}`);
   }
 
-  createCamera(camera: Camera): Observable<Camera> {
-    return this.http.post<Camera>(this.apiUrl, camera);
+  createCamera(camera: Camera): Observable<ApiResponse<Camera>> {
+    return this.http.post<ApiResponse<Camera>>(this.apiUrl, camera);
   }
 
-  updateCamera(id: string, camera: Camera): Observable<Camera> {
-    return this.http.put<Camera>(`${this.apiUrl}/${id}`, camera);
+  updateCamera(id: string, camera: Camera): Observable<ApiResponse<Camera>> {
+    return this.http.put<ApiResponse<Camera>>(`${this.apiUrl}/${id}`, camera);
   }
 
-  deleteCamera(id: string): Observable<Camera> {
-    return this.http.delete<Camera>(`${this.apiUrl}/${id}`);
+  deleteCamera(id: string): Observable<ApiResponse<Camera>> {
+    return this.http.delete<ApiResponse<Camera>>(`${this.apiUrl}/${id}`);
   }
 
   assignCameraClaim(cameraId: string, userId: string): Observable<void> {
