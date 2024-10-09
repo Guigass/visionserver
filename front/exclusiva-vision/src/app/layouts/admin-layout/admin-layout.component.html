@@ -5,29 +5,40 @@
         <ion-img slot="start" class="img-logo" src="/assets/logos/logo-vertical-negativo.png"></ion-img>
       </ion-toolbar>
     </ion-header>
-    
-    
-    <ion-content>
 
+
+    <ion-content>
+      <ion-item button lines="none" routerLink="/admin/cameras" routerDirection="root">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        <ion-label>Cameras</ion-label>
+      </ion-item>
+      <ion-item button lines="none" routerLink="/admin/groups" routerDirection="root">
+        <ion-icon slot="start" name="grid"></ion-icon>
+        <ion-label>Grupos</ion-label>
+      </ion-item>
+      <ion-item button lines="none" routerLink="/admin/users" routerDirection="root">
+        <ion-icon slot="start" name="person"></ion-icon>
+        <ion-label>Usuários</ion-label>
+      </ion-item>
+      <ion-item button lines="none" routerLink="/admin/settings" routerDirection="root">
+        <ion-icon slot="start" name="settings"></ion-icon>
+        <ion-label>Configurações</ion-label>
+      </ion-item>
     </ion-content>
 
     <ion-footer>
-      <ion-item button id="open-popover-settings">
-        <ion-icon slot="start" name="settings"></ion-icon>
-        <ion-label>Opções</ion-label>
+      <ion-item button lines="none" routerLink="/admin" routerDirection="root">
+        <ion-icon slot="start" name="library"></ion-icon>
+        <ion-label>Home</ion-label>
       </ion-item>
-      <ion-popover trigger="open-popover-settings" triggerAction="click" dismissOnSelect="true">
-        <ng-template>
-          <ion-content>
-            <ion-list>
-              <ion-item button lines="none" (click)="logout()">
-                <ion-icon slot="start" name="exit"></ion-icon>
-                <ion-label>Sair</ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
+      <ion-item button lines="none" routerLink="/home" routerDirection="root">
+        <ion-icon slot="start" name="home"></ion-icon>
+        <ion-label>App</ion-label>
+      </ion-item>
+      <ion-item button lines="none" (click)="logout()">
+        <ion-icon slot="start" name="exit"></ion-icon>
+        <ion-label>Sair</ion-label>
+      </ion-item>
     </ion-footer>
   </ion-menu>
 
