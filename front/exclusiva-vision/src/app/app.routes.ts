@@ -43,6 +43,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin/cameras/cameras.page').then( m => m.CamerasPage)
       },
       {
+        path: 'cameras/new',
+        loadComponent: () => import('./pages/admin/cameras/camera-edit/camera-edit.page').then( m => m.CameraEditPage)
+      },
+      {
+        path: 'cameras/:id',
+        loadComponent: () => import('./pages/admin/cameras/camera-edit/camera-edit.page').then( m => m.CameraEditPage)
+      },
+      {
         path: 'groups',
         loadComponent: () => import('./pages/admin/groups/groups.page').then( m => m.GroupsPage)
       },
