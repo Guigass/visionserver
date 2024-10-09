@@ -31,8 +31,10 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "styles": ["src/global.scss", "src/theme/variables.scss", "node_modules/@videogular/ngx-videogular/fonts/videogular.css"],
+            "scripts": [
+              "/node_modules/hls.js/dist/hls.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -133,7 +135,8 @@
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
-      "styleext": "scss"
+      "styleext": "scss",
+      "standalone": true
     },
     "@ionic/angular-toolkit:page": {
       "styleext": "scss"
