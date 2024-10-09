@@ -34,6 +34,7 @@
     "@videogular/ngx-videogular": "^10.0.0",
     "ionicons": "^7.2.1",
     "ngx-ui-loader": "^13.0.0",
+    "hls.js": "^1.5.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
