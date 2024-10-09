@@ -9,6 +9,7 @@ using System.Web;
 using Vision.Data.Interfaces;
 using Vision.Data.Models;
 using VisionAPI.Configuration;
+using VisionAPI.Extensions;
 using VisionAPI.Notifications;
 using VisionAPI.ViewModels;
 
@@ -35,6 +36,7 @@ public class AuthController : MainController
     }
 
     [HttpPost("Register")]
+    [RoleAuthorize("Admin")]
     public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);

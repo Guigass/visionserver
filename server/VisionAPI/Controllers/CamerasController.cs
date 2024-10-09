@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Vision.Data.Interfaces;
 using Vision.Data.Models;
+using VisionAPI.Extensions;
 using VisionAPI.Notifications;
 
 namespace VisionAPI.Controllers;
@@ -56,6 +55,7 @@ public class CamerasController : MainController
 
     // POST: Cameras
     [HttpPost]
+    [RoleAuthorize("Admin")]
     public async Task<ActionResult<Camera>> PostCamera(Camera camera)
     {
         if (!ModelState.IsValid)
@@ -70,6 +70,7 @@ public class CamerasController : MainController
 
     // PUT: Cameras/5
     [HttpPut("{id}")]
+    [RoleAuthorize("Admin")]
     public async Task<IActionResult> PutCamera(Guid id, Camera camera)
     {
         if (id != camera.Id) return BadRequest();
@@ -83,6 +84,7 @@ public class CamerasController : MainController
 
     // DELETE: Cameras/5
     [HttpDelete("{id}")]
+    [RoleAuthorize("Admin")]
     public async Task<IActionResult> DeleteCamera(Guid id)
     {
         var camera = await _cameraRepository.GetByIdAsync(id);
