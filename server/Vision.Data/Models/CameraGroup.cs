@@ -9,7 +9,4 @@ public class CameraGroup : Entity
 {
     public Guid CameraId { get; set; }
     public virtual Camera? Camera { get; set; }
-
-    public Guid GroupId { get; set; }
-    public virtual Group? Group { get; set; }
 }

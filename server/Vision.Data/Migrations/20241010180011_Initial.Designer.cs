@@ -12,7 +12,7 @@ using Vision.Data.Context;
 namespace Vision.Data.Migrations
 {
     [DbContext(typeof(VisionContext))]
-    [Migration("20241009225054_Initial")]
+    [Migration("20241010180011_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -163,7 +163,10 @@ namespace Vision.Data.Migrations
                     b.Property<Guid>("CameraId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("PanelId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -172,28 +175,9 @@ namespace Vision.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("CamerasGroups");
-                });
-
-            modelBuilder.Entity("Vision.Data.Models.CameraPanel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CameraId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PanelId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CameraId");
-
                     b.HasIndex("PanelId");
 
-                    b.ToTable("CamerasPanels");
+                    b.ToTable("CamerasGroups");
                 });
 
             modelBuilder.Entity("Vision.Data.Models.Group", b =>
@@ -488,34 +472,15 @@ namespace Vision.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vision.Data.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Vision.Data.Models.Group", null)
+                        .WithMany("CameraGroup")
+                        .HasForeignKey("GroupId");
+
+                    b.HasOne("Vision.Data.Models.Panel", null)
+                        .WithMany("CameraGroup")
+                        .HasForeignKey("PanelId");
 
                     b.Navigation("Camera");
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Vision.Data.Models.CameraPanel", b =>
-                {
-                    b.HasOne("Vision.Data.Models.Camera", "Camera")
-                        .WithMany()
-                        .HasForeignKey("CameraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vision.Data.Models.Panel", "Panel")
-                        .WithMany()
-                        .HasForeignKey("PanelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Camera");
-
-                    b.Navigation("Panel");
                 });
 
             modelBuilder.Entity("Vision.Data.Models.Identity+AppRoleClaim", b =>
@@ -578,6 +543,16 @@ namespace Vision.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Vision.Data.Models.Group", b =>
+                {
+                    b.Navigation("CameraGroup");
+                });
+
+            modelBuilder.Entity("Vision.Data.Models.Panel", b =>
+                {
+                    b.Navigation("CameraGroup");
                 });
 #pragma warning restore 612, 618
         }

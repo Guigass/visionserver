@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vision.Data.Context;
 using VisionAPI.Configuration;
-using VisionAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<VisionContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddIdentityConfiguration(builder.Configuration);
+//builder.Services.AddIdentityConfiguration(builder.Configuration);
 
 builder.Services.AddControllers();
 

@@ -263,7 +263,8 @@ namespace Vision.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CameraId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false)
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: true),
+                    PanelId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -278,33 +279,12 @@ namespace Vision.Data.Migrations
                         name: "FK_CamerasGroups_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CamerasPanels",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CameraId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PanelId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CamerasPanels", x => x.Id);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CamerasPanels_Cameras_CameraId",
-                        column: x => x.CameraId,
-                        principalTable: "Cameras",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CamerasPanels_Panels_PanelId",
+                        name: "FK_CamerasGroups_Panels_PanelId",
                         column: x => x.PanelId,
                         principalTable: "Panels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -355,13 +335,8 @@ namespace Vision.Data.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CamerasPanels_CameraId",
-                table: "CamerasPanels",
-                column: "CameraId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CamerasPanels_PanelId",
-                table: "CamerasPanels",
+                name: "IX_CamerasGroups_PanelId",
+                table: "CamerasGroups",
                 column: "PanelId");
 
             migrationBuilder.CreateIndex(
@@ -423,19 +398,16 @@ namespace Vision.Data.Migrations
                 name: "CamerasGroups");
 
             migrationBuilder.DropTable(
-                name: "CamerasPanels");
-
-            migrationBuilder.DropTable(
                 name: "ServerConfigs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Groups");
+                name: "Cameras");
 
             migrationBuilder.DropTable(
-                name: "Cameras");
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Panels");

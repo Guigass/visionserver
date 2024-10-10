@@ -13,4 +13,5 @@ public class Group : Entity
     [MaxLength(500)]
     public required string Description { get; set; }   // Descrição do grupo
     public bool IsActive { get; set; }                 // Indica se o grupo está ativo
+    public virtual ICollection<CameraGroup> CameraGroup { get; set; } = new List<CameraGroup>();
 }

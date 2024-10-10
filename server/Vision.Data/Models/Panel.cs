@@ -17,4 +17,6 @@ public class Panel : Entity
 
     public Guid UserId { get; set; }
     public virtual User? User { get; set; }
+
+    public virtual ICollection<CameraGroup> CameraGroup { get; set; } = new List<CameraGroup>();
 }
