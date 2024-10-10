@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AlertController, IonToggle, IonSelect, IonSelectOption, IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonLabel, IonItem, IonButton, IonText, IonItemDivider, IonNote, IonInput, LoadingController } from '@ionic/angular/standalone';
+import { IonBackButton, AlertController, IonToggle, IonSelect, IonSelectOption, IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonLabel, IonItem, IonButton, IonText, IonItemDivider, IonNote, IonInput, LoadingController, IonButtons } from '@ionic/angular/standalone';
 import { CameraService } from 'src/app/shared/services/api/camera/camera.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CameraService } from 'src/app/shared/services/api/camera/camera.service
   templateUrl: './camera-edit.page.html',
   styleUrls: ['./camera-edit.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonButtons, 
     IonSelect,
     IonInput,
     IonNote,
@@ -24,7 +24,8 @@ import { CameraService } from 'src/app/shared/services/api/camera/camera.service
     IonHeader,
     IonTitle,
     IonToolbar,
-    IonToggle
+    IonToggle,
+    IonBackButton
   ]
 })
 export class CameraEditPage implements OnInit {

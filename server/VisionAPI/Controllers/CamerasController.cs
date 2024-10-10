@@ -84,7 +84,6 @@ public class CamerasController : MainController
         await _cameraRepository.CreateAsync(camera);
 
         var user = await _userManager.FindByIdAsync(_user.GetUserId().ToString()!);
-        await _userManager.AddClaimAsync(user!, new Claim("CameraAccess", camera.Id.ToString()));
 
         return CustomResponse(camera);
     }
@@ -97,6 +96,8 @@ public class CamerasController : MainController
         if (id != camera.Id) return BadRequest();
 
         if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+        camera.IsRequested = false;
 
         await _cameraRepository.UpdateAsync(camera);
 

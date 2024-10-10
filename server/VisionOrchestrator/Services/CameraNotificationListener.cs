@@ -66,6 +66,8 @@ public class CameraNotificationListener : ICameraNotificationListener
 
     private async Task HandleNotification(string payload)
     {
+        Console.WriteLine($"Received notification: {payload}");
+
         using (var scope = _scopeFactory.CreateScope())
         {
             var cameraRepository = scope.ServiceProvider.GetRequiredService<ICameraRepository>();

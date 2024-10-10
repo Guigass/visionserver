@@ -78,7 +78,7 @@ public class DockerService : IDockerService
             "-hls_flags", "delete_segments",  // Deletar segmentos antigos
             "-hls_segment_filename", segmentPath, // Arquivo de saída dos segmentos
             "-rtsp_transport", camera.RtspTransport,  // Transporte RTSP
-            "-loglevel", "debug"
+            //"-loglevel", "debug"
         };
 
         // Adicionar Bitrate se estiver definido
@@ -274,11 +274,13 @@ public class DockerService : IDockerService
 
             var snapshotOptions = new List<string>
             {
-                "-i", $"\"{camera.RTSPUrl}\"", // URL RTSP da câmera
+                "-rtsp_transport", camera.RtspTransport,
+                "-i", $"{camera.RTSPUrl}", // URL RTSP da câmera
                 "-vf", $"fps={camera.SnapshotFPS}", // FPS
                 "-q:v", "2", // Qualidade do snapshot
                 "-s", $"{camera.Width}x{camera.Height}", // Resolução do snapshot
                 "-update", "1", // Atualiza a mesma imagem
+                "-loglevel", "debug",
                 snapshotPath // Caminho do snapshot
             };
 

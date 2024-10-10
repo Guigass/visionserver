@@ -15,9 +15,25 @@
       </ion-item>
     }
     @for (camera of cameras(); track camera.id) {
-      <ion-item>
-        <ion-label>{{camera.name}}</ion-label>
-      </ion-item>
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label>{{camera.name}}</ion-label>
+        </ion-item>
+    
+        <ion-item-options>
+          <ion-item-option [routerLink]="'/admin/cameras/' + camera.id">
+            <ion-icon icon="create-outline"></ion-icon> Editar
+          </ion-item-option>
+          <ion-item-option color="danger">
+            <ion-icon icon="trash-outline"></ion-icon> Excluir
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     }
   </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/admin/cameras/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

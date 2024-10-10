@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { IonMenu, IonRouterLink, IonSplitPane, IonContent, IonToolbar, IonImg, IonLabel, IonItem, IonFooter, IonPopover, IonIcon, IonRouterOutlet, IonList, IonHeader } from "@ionic/angular/standalone";
 
 @Component({
@@ -21,15 +21,13 @@ import { IonMenu, IonRouterLink, IonSplitPane, IonContent, IonToolbar, IonImg, I
     IonContent,
     IonSplitPane,
     IonMenu,
-    RouterModule,
+    RouterLink,
     IonRouterLink,
   ]
 })
-export class AdminLayoutComponent  implements OnInit {
+export class AdminLayoutComponent {
 
   constructor() { }
-
-  ngOnInit() {}
 
   logout() {
     
