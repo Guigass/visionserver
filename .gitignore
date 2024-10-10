@@ -11,3 +11,4 @@ server/VisionOrchestrator/bin
 server/VisionOrchestrator/.vs
 
 .vs
+visionserver_clean.zip
