@@ -16,13 +16,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "www",
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -33,14 +32,13 @@
               }
             ],
             "styles": [
-              "src/global.scss",
-              "src/theme/variables.scss",
+              "src/global.scss", 
+              "src/theme/variables.scss", 
               "node_modules/@videogular/ngx-videogular/fonts/videogular.css"
             ],
             "scripts": [
               "/node_modules/hls.js/dist/hls.min.js"
-            ],
-            "browser": "src/main.ts"
+            ]
           },
           "configurations": {
             "production": {
@@ -65,7 +63,9 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -112,10 +112,7 @@
                 "output": "assets"
               }
             ],
-            "styles": [
-              "src/global.scss",
-              "src/theme/variables.scss"
-            ],
+            "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": []
           },
           "configurations": {
@@ -128,10 +125,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
